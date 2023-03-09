@@ -1,5 +1,6 @@
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
@@ -10,6 +11,14 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
+    plugins: [new MiniCssExtractPlugin()],
+    module: {
+      rules: [
+        {
+          test: /\.scss$/i,
+          use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+        },
+      ],
+    },
   });
 };
