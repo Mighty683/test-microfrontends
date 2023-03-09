@@ -7,5 +7,6 @@ export default function Root(props) {
       import('./lazy.helper').then(module => module.lazyAlert())
     })();
   }, []);
-  return <section><FancyName name={props.name} /> is mounted!</section>;
+  
+  return <section><FancyName name={props.parcelName} /> is mounted!</section>;
 }
